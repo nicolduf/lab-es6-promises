@@ -135,7 +135,8 @@ async function makeBroccoli() {
   const step5 = await obtainInstruction("broccoli", 5);
   document.querySelector("#broccoli").innerHTML += `<li>${step5}</li>`;
   const step6 = await obtainInstruction("broccoli", 6);
-  document.querySelector("#broccoli").innerHTML += `<li>${step6}</li>`;
+ ;;
+  document.querySelector("#broccoli").innerHTML += "<li>Broccoli is ready!</li>"
   document.querySelector("#broccoliImg").removeAttribute("hidden");
 }  
 makeBroccoli()
@@ -144,3 +145,24 @@ makeBroccoli()
 
 // Bonus 2 - Promise all
 // ...
+function makeSprouts() {
+  const allPromises = [];
+  for (let i = 0; i < 8; i ++) {
+    allPromises.push(obtainInstruction("brusselsSprouts", i));
+
+  }
+  console.log(allPromises);
+
+  let values
+
+  Promise.all(allPromises)
+  .then((arrayOffFulfilledValues) => {
+    arrayOffFulfilledValues.forEach(element => {
+      document.querySelector("#brusselsSprouts").innerHTML += `<li>${element}</li>`
+    });
+    document.querySelector("#brusselsSproutsImg").removeAttribute("hidden");
+  })
+  .catch((error) => console.log(error));
+
+}
+makeSprouts()
